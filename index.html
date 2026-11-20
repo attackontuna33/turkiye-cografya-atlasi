@@ -38,6 +38,124 @@ karst:[["Dolin, uvala ve polye hangi süreçle oluşur?",["Karstik çözünme","
 coast:[["Bir adanın kıyıya birikinti setiyle bağlanmasına ne denir?",["Tombolo","Falez","Delta"],0,"Tombolo, ada ile karayı birleştiren kıyı birikim şeklidir."]],
 province:[["Türkiye kaç ilden oluşur?",["81","79","83"],0,"Türkiye'nin idari yapısında 81 il bulunur."]]
 };
+const extraQuiz={
+fold:[
+["Kuzey Anadolu Dağları Türkiye'nin hangi bölümünde uzanır?",["Kuzeyinde","Güneyinde","Güneydoğusunda"],0,"Kuzey Anadolu Dağları Karadeniz kıyılarına paralel uzanır."],
+["Toros Dağları hangi kıyı boyunca uzanır?",["Akdeniz","Karadeniz","Marmara"],0,"Toroslar Akdeniz kıyısına paralel uzanır."],
+["Kıvrım dağlarının oluşumunda hangi kayaç yapısı etkili olmuştur?",["Tortul tabakaların sıkışıp kıvrılması","Lavların üst üste birikmesi","Akarsuların aşındırması"],0,"Jeosenklinal alanlarda biriken tortullar sıkışma ile kıvrılarak yükselir."]
+],
+fault:[
+["Ege Bölgesi'ndeki çöküntü ovalarına ne ad verilir?",["Graben","Horst","Delta"],0,"Gediz ve Büyük Menderes gibi çöküntü alanları graben örnekleridir."],
+["Horst hangi yer şeklidir?",["Faylarla çevresine göre yükselmiş blok","Faylarla çökmüş blok","Akarsu birikinti konisi"],0,"Horst, normal faylar arasında göreceli olarak yüksek kalan bloktur."],
+["Aşağıdakilerden hangisi Batı Anadolu'daki grabenlerden biridir?",["Büyük Menderes","Ergene","Harran"],0,"Büyük Menderes grabeni Batı Anadolu'nun önemli tektonik çöküntülerindendir."]
+],
+volcanic:[
+["Ağrı Dağı hangi bölgemizdedir?",["Doğu Anadolu","İç Anadolu","Ege"],0,"Ağrı Dağı Doğu Anadolu Bölgesi'nin doğusunda yer alır."],
+["Hasan Dağı hangi il sınırları çevresinde yükselir?",["Aksaray-Niğde","Rize-Artvin","İzmir-Manisa"],0,"Hasan Dağı İç Anadolu'nun güneyinde, Aksaray ve Niğde çevresindedir."],
+["Nemrut Dağı (kaldera) hangi gölün yakınındadır?",["Van Gölü","Tuz Gölü","Beyşehir Gölü"],0,"Bitlis'teki Nemrut volkanik kütlesi Van Gölü'nün batısında bulunur."]
+],
+plateau:[
+["Cihanbeyli Platosu hangi bölgemizdedir?",["İç Anadolu","Marmara","Karadeniz"],0,"Cihanbeyli Platosu Konya çevresinde, İç Anadolu'dadır."],
+["Erzurum-Kars Platosu'nun yaygın doğal bitki örtüsü hangisidir?",["Çayır","Maki","Garig"],0,"Yaz yağışları ve yüksekliğin etkisiyle çayırlar yaygındır."],
+["Teke ve Taşeli platolarında hangi kayaç türü yaygındır?",["Kalker","Bazalt dışında tümü","Granit"],0,"Karstik şekillerin geliştiği kalkerli araziler yaygındır."]
+],
+plain:[
+["Bafra Ovası hangi akarsuyun deltasıdır?",["Kızılırmak","Yeşilırmak","Sakarya"],0,"Kızılırmak'ın Karadeniz'e döküldüğü yerde Bafra Deltası oluşmuştur."],
+["Çarşamba Ovası hangi akarsuyun deltasıdır?",["Yeşilırmak","Kızılırmak","Meriç"],0,"Yeşilırmak'ın taşıdığı alüvyonlar Çarşamba Ovası'nı oluşturur."],
+["Amik Ovası hangi ilimizdedir?",["Hatay","Adana","Aydın"],0,"Amik Ovası Hatay'da, Asi Havzası içinde yer alır."]
+],
+river:[
+["Meriç Nehri hangi denize dökülür?",["Ege Denizi","Karadeniz","Akdeniz"],0,"Meriç, Edirne çevresinden geçerek Ege Denizi'ne ulaşır."],
+["Çoruh Nehri hangi denize dökülür?",["Karadeniz","Akdeniz","Marmara"],0,"Çoruh, Türkiye'den Gürcistan'a geçerek Karadeniz'e dökülür."],
+["Sakarya Nehri hangi denize dökülür?",["Karadeniz","Ege Denizi","Akdeniz"],0,"Sakarya Nehri Karadeniz'e dökülür."]
+],
+lake:[
+["Tuz Gölü'nün su özelliği nasıldır?",["Tuzlu","Tatlı","Sürekli buzlu"],0,"Kapalı havzada yer alan Tuz Gölü'nün tuzluluk oranı yüksektir."],
+["Beyşehir Gölü hangi iki il arasında yer alır?",["Konya-Isparta","Van-Bitlis","Bursa-Balıkesir"],0,"Beyşehir Gölü Konya ve Isparta sınırları çevresindedir."],
+["Sapanca Gölü hangi iki il arasında bulunur?",["Sakarya-Kocaeli","İzmir-Manisa","Ankara-Çankırı"],0,"Sapanca Gölü Sakarya ve Kocaeli arasında yer alır."]
+],
+dam:[
+["Keban Barajı hangi akarsu üzerindedir?",["Fırat","Dicle","Sakarya"],0,"Keban Barajı Elazığ yakınlarında Fırat Nehri üzerindedir."],
+["Hirfanlı Barajı hangi akarsu üzerindedir?",["Kızılırmak","Fırat","Gediz"],0,"Hirfanlı Barajı Kızılırmak üzerinde kurulmuştur."],
+["Güneydoğu Anadolu Projesi'nin (GAP) temel amaçlarından biri nedir?",["Sulama ve hidroelektrik üretimi","Karadeniz limanlarını büyütmek","Orman alanlarını genişletmek"],0,"GAP, Fırat-Dicle havzasında sulama ve enerji yatırımlarını kapsar."]
+],
+climate:[
+["Akdeniz ikliminde yazlar genellikle nasıldır?",["Sıcak ve kurak","Serin ve yağışlı","Soğuk ve karlı"],0,"Akdeniz ikliminde yaz kuraklığı belirgindir."],
+["Karadeniz ikliminde yağış rejimi nasıldır?",["Her mevsim yağışlı","Yalnız yaz yağışlı","Yalnız kış yağışlı"],0,"Karadeniz kıyılarında yağış yıl içine görece düzenli dağılır."],
+["Karasal iklimde günlük ve yıllık sıcaklık farkları genellikle nasıldır?",["Belirgin","Çok düşük","Deniz ikliminden daha az"],0,"Deniz etkisinin azalması sıcaklık farklarını artırır."]
+],
+vegetation:[
+["Akdeniz kıyılarında makinin oluşumunda hangi bitki örtüsü etkilidir?",["Kızılçam ormanlarının tahribi","Tundra bitkileri","Alpin çayırlar"],0,"Maki, Akdeniz ikliminde kızılçam ormanlarının bozulduğu alanlarda yaygınlaşır."],
+["Yüksek dağların ağaç üst sınırının üzerinde hangi bitki topluluğu görülür?",["Alpin çayırlar","Maki","Bozkır"],0,"Yüksek kesimlerde ağaç yetişme sınırının üzerinde alpin çayırlar görülür."],
+["Karadeniz'in nemli kıyı kuşağında hangi orman tipi yaygındır?",["Geniş yapraklı ve karma ormanlar","Maki","Çöl çalılıkları"],0,"Nemli koşullar geniş yapraklı ve karma ormanları destekler."]
+],
+soil:[
+["Çernezyom toprakları Türkiye'de özellikle hangi alanda görülür?",["Erzurum-Kars","Çukurova","Menteşe"],0,"Çernezyomlar çayır örtüsü altında, Erzurum-Kars çevresinde görülür."],
+["Terra rossa topraklarının kırmızı rengi neden kaynaklanır?",["Demir oksit birikimi","Tuz kristalleri","Organik madde fazlalığı"],0,"Demir oksitler terra rossa'ya kırmızı rengini verir."],
+["Podzol toprakları hangi iklim koşullarıyla ilişkilidir?",["Soğuk ve nemli","Sıcak ve kurak","Yarı kurak bozkır"],0,"Podzollaşma serin-soğuk ve nemli orman ortamlarında gelişebilir."]
+],
+crop:[
+["Fındık üretimi hangi kıyı kuşağında yoğunlaşır?",["Orta ve Doğu Karadeniz","Akdeniz'in batısı","Güneydoğu Anadolu"],0,"Fındık özellikle Ordu-Giresun başta olmak üzere Karadeniz kıyılarında yetiştirilir."],
+["Pamuk tarımı için aşağıdakilerden hangisi gereklidir?",["Uzun ve sıcak yetişme dönemi","Yıl boyu don","Çok kısa yaz"],0,"Pamuk, uzun ve sıcak bir yetişme dönemi ister."],
+["Zeytin tarımı Türkiye'de hangi iklim kuşağında yaygındır?",["Akdeniz iklimi","Sert karasal iklim","Tundra iklimi"],0,"Zeytin don olaylarına hassastır ve Akdeniz iklim kuşağında yaygındır."]
+],
+livestock:[
+["Arıcılık için önemli doğal kaynaklardan biri hangisidir?",["Zengin çiçekli bitki örtüsü","Tuzlu göl tabanı","Buzul alanları"],0,"Çiçek çeşitliliği ve uzun çiçeklenme dönemi arıcılığı destekler."],
+["Küçükbaş hayvancılık hangi doğal bitki örtüsüyle daha çok ilişkilidir?",["Bozkır","Gür orman","Tundra"],0,"Bozkır alanları koyun ve keçi yetiştiriciliğine elverişlidir."],
+["İpek böcekçiliği için yetiştirilen temel bitki hangisidir?",["Dut","Çay","Pamuk"],0,"İpek böceği dut yaprağıyla beslenir."]
+],
+mine:[
+["Türkiye'de bakır çıkarımıyla bilinen Murgul hangi ilimizdedir?",["Artvin","Edirne","Aydın"],0,"Murgul, Artvin'de önemli bakır yataklarıyla tanınır."],
+["Krom yataklarıyla bilinen Fethiye ve Köyceğiz hangi bölgemizdedir?",["Akdeniz","Marmara","Güneydoğu Anadolu"],0,"Fethiye-Köyceğiz çevresi önemli krom sahalarındandır."],
+["Linyit aşağıdaki enerji kaynaklarından hangisidir?",["Fosil yakıt","Metal madeni","Endüstriyel tuz"],0,"Linyit, düşük kalorili bir kömür türü ve fosil yakıttır."]
+],
+energy:[
+["Türkiye'de jeotermal enerji potansiyeli hangi bölgede özellikle yüksektir?",["Ege","Doğu Karadeniz","Marmara'nın kuzeyi"],0,"Batı Anadolu'nun genç tektoniği ve fayları jeotermal potansiyeli artırır."],
+["Rüzgâr enerjisi yatırımlarının yoğunlaştığı alanlardan biri hangisidir?",["Ege kıyıları","Erzurum Ovası'nın iç kesimleri","Hakkâri'nin yüksek zirveleri"],0,"Ege kıyıları ve Marmara'nın bazı kesimleri rüzgâr enerjisi için elverişlidir."],
+["Hidroelektrik enerji üretimi hangi doğal koşulda artar?",["Akarsu debisi ve yükselti farkı yüksekse","Akarsu yatağı tamamen düzse","Yağış hiç yoksa"],0,"Debi ve düşü yüksek akarsular hidroelektrik üretimi için elverişlidir."]
+],
+industry:[
+["Demir-çelik sanayisinin kuruluşunda temel girdilerden hangileri önemlidir?",["Demir cevheri ve enerji","Çay ve fındık","Pamuk ve ipek"],0,"Demir-çelik tesisleri cevher, enerji, su ve ulaşım olanaklarına ihtiyaç duyar."],
+["İstanbul-Kocaeli çevresinde sanayinin gelişmesinde hangi unsur etkilidir?",["Geniş pazar ve ulaşım ağı","Yüksek dağlık alanların fazlalığı","Tarım sezonunun kısa olması"],0,"Marmara'da pazar, liman, ulaşım, sermaye ve iş gücü avantajları vardır."],
+["Şeker fabrikalarının tarım alanlarına yakın kurulmasının temel nedeni nedir?",["Şeker pancarının bekletilmeden işlenmesi","Şeker pancarının deniz yoluyla taşınması","Üretimin yalnız kışın yapılması"],0,"Pancar hasattan sonra şeker kaybına uğrayabildiği için fabrikaya yakın işlenir."]
+],
+population:[
+["Türkiye'de nüfusun seyrek olduğu alanlardan biri hangisidir?",["Hakkâri'nin dağlık kesimleri","İstanbul çevresi","İzmit Körfezi çevresi"],0,"Yüksek, engebeli ve ulaşımı zor alanlarda nüfus yoğunluğu genellikle düşüktür."],
+["Kırdan kente göçün sonuçlarından biri hangisidir?",["Kent nüfusunun artması","Kırsal nüfusun mutlak artması","Sanayinin tümüyle durması"],0,"Göç, kent nüfusunu ve kent hizmetlerine olan talebi artırır."],
+["Nüfus piramidinin tabanının geniş olması genellikle neyi gösterir?",["Doğum oranının yüksekliğini","Yaşlı nüfus oranının yüksekliğini","Göçün hiç olmadığını"],0,"Geniş taban, genç nüfusun ve doğum oranının yüksek olduğuna işaret eder."]
+],
+transport:[
+["İstanbul Boğazı hangi iki kıtayı birbirinden ayırır?",["Asya ve Avrupa","Avrupa ve Afrika","Asya ve Afrika"],0,"İstanbul Boğazı Asya ile Avrupa arasında doğal sınır oluşturur."],
+["Türkiye'de demir yolu ulaşımının gelişmesini zorlaştıran doğal faktörlerden biri nedir?",["Engebeli yer şekilleri","Geniş ve düz ovaların varlığı","Kıyıların uzun olması"],0,"Dağlık ve engebeli alanlarda demir yolu yapım maliyeti yükselir."],
+["Mersin Limanı'nın gelişmesinde hangi özellik etkilidir?",["İç Anadolu ve Güneydoğu'ya bağlantı sağlaması","Karadeniz'e kıyısı olması","Yalnız balıkçılık limanı olması"],0,"Mersin Limanı hinterlandı geniş, önemli bir dış ticaret limanıdır."]
+],
+tourism:[
+["Kapadokya'nın peribacaları hangi süreçlerin ortak etkisiyle oluşmuştur?",["Volkanik tüflerin aşınması","Buzul biriktirmesi","Mercan oluşumu"],0,"Tüflerin akarsu ve rüzgâr aşındırmasıyla peribacaları gelişmiştir."],
+["Pamukkale travertenlerinin oluşumunda hangi madde çökelir?",["Kalsiyum karbonat","Taş kömürü","Bazalt"],0,"Kalsiyum karbonatça zengin suların çökelmesi travertenleri oluşturur."],
+["Uludağ hangi turizm türüyle özellikle tanınır?",["Kış turizmi","Termal kıyı turizmi","Çöl safarisi"],0,"Uludağ, kayak ve kış turizminin önemli merkezlerindendir."]
+],
+hazard:[
+["Kuzey Anadolu Fay Hattı'nın genel uzanışı nasıldır?",["Doğu-batı","Kuzey-güney","Kuzeydoğu-güneybatı boyunca tek parça"],0,"Kuzey Anadolu Fay Zonu genel olarak doğu-batı doğrultusunda uzanır."],
+["Deprem riskini azaltmada en etkili uygulamalardan biri hangisidir?",["Yapıların zemin ve deprem yönetmeliğine uygun yapılması","Dere yataklarına yapılaşmak","Taşıyıcı sistemi zayıflatmak"],0,"Mühendislik ilkelerine ve yönetmeliklere uygun yapılaşma can kaybını azaltır."],
+["Sel riskini artıran insan kaynaklı etken hangisidir?",["Dere yataklarının yapılaşmaya açılması","Bitki örtüsünün korunması","Yağmur suyu altyapısının güçlendirilmesi"],0,"Dere yataklarına yapılaşma taşkınlarda can ve mal kaybını artırır."]
+],
+karst:[
+["Türkiye'de karstik şekillerin yaygın olduğu alan hangisidir?",["Teke-Taşeli yöresi","Ergene Havzası","Bafra Deltası"],0,"Kalkerli arazilerin yaygın olduğu Teke ve Taşeli'de karstik şekiller gelişmiştir."],
+["Mağara oluşumunda en etkili süreç hangisidir?",["Kalkerlerin yer altı sularıyla çözünmesi","Rüzgârın kum biriktirmesi","Lavların soğuması"],0,"Karbonik asit içeren sular kalkeri çözerek mağaralar oluşturabilir."],
+["Obruk oluşumunda hangi süreç etkilidir?",["Yer altı boşluklarının tavanının çökmesi","Deniz dalgalarının kıyıyı aşındırması","Buzulların moren bırakması"],0,"Karstik boşlukların tavanı çöktüğünde obruk oluşabilir."]
+],
+coast:[
+["Falez oluşumunda hangi dış kuvvet etkilidir?",["Deniz dalgaları","Rüzgâr biriktirmesi","Buzul aşındırması"],0,"Dalgalar kıyıyı aşındırarak dik kıyı yamaçları oluşturabilir."],
+["Kıyı oku hangi süreçle oluşur?",["Dalgaların ve kıyı akıntılarının biriktirmesi","Volkanik püskürme","Yer altı sularının çözündürmesi"],0,"Kıyı akıntıları taşıdıkları malzemeyi uygun alanlarda biriktirerek kıyı okları oluşturur."],
+["Ria tipi kıyılar hangi yer şeklinin deniz altında kalmasıyla oluşur?",["Akarsu vadileri","Buzul sirkleri","Volkan konileri"],0,"Deniz seviyesinin yükselmesiyle akarsu vadileri sular altında kalır."]
+],
+province:[
+["Türkiye'nin yüz ölçümü en büyük ili hangisidir?",["Konya","İstanbul","Yalova"],0,"Konya, yüz ölçümü bakımından Türkiye'nin en büyük ilidir."],
+["Türkiye'nin nüfusu en fazla olan ili hangisidir?",["İstanbul","Ankara","İzmir"],0,"İstanbul, TÜİK'in güncel nüfus verilerinde en kalabalık ildir."],
+["Türkiye'nin en doğusunda bulunan illerden biri hangisidir?",["Iğdır","Edirne","Çanakkale"],0,"Iğdır, Türkiye'nin doğu ucunda yer alan illerdendir."]
+]
+};
+Object.keys(extraQuiz).forEach(key=>{if(quiz[key])quiz[key].push(...extraQuiz[key]);});
 async function loadProvinceLayer(){
  const status=document.getElementById("mapSubtitle");
  try{
