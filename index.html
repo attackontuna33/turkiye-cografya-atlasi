@@ -185,12 +185,12 @@ function drawLocalMap(points){
  const X=lon=>(lon-25.3)/(45.1-25.3)*1000, Y=lat=>(42.35-lat)/(42.35-35.45)*430;
  const ringPath=ring=>ring.map((c,i)=>(i?"L":"M")+X(c[0]).toFixed(1)+","+Y(c[1]).toFixed(1)).join("")+"Z";
  const geomPath=g=>{let s="";const walk=v=>{if(Array.isArray(v)&&v.length&&Array.isArray(v[0])&&typeof v[0][0]==="number"){s+=ringPath(v);}else if(Array.isArray(v)){v.forEach(walk);}};walk(g.coordinates);return s;};
- const shapes=provinceGeoJSON.features.map(f=>{const name=(f.properties||{}).il_adi||"İl";return '<path class="province-shape" data-province="'+name+'" d="'+geomPath(f.geometry)+'"><title>'+name+'</title></path>';}).join("");
+ const shapes=provinceGeoJSON.features.map(f=>{const name=(f.properties||{}).il_adi||"İl";return '<path class="province-shape" data-province="'+name+'" role="button" tabindex="0" aria-label="'+name+' ilini seç" d="'+geomPath(f.geometry)+'"><title>'+name+'</title></path>';}).join("");
  const names=labels?provincePoints.map(p=>'<text class="province-label" x="'+X(p[2])+'" y="'+Y(p[1])+'">'+p[0]+'</text>').join(""):"";
  const marks=(points||[]).map((p,i)=>'<g data-point="'+i+'"><circle class="atlas-point" cx="'+X(p[2])+'" cy="'+Y(p[1])+'" r="5.5" fill="'+(byId(p[3])?.color||"#e5a84b")+'"><title>'+p[0]+'</title></circle>'+(labels?'<text class="atlas-point-label" x="'+(X(p[2])+7)+'" y="'+(Y(p[1])-6)+'">'+p[0]+'</text>':"")+'</g>').join("");
  svg.innerHTML='<rect width="1000" height="430" fill="#b8d5df"/>'+shapes+names+marks;
  svg.querySelectorAll("[data-point]").forEach(el=>el.addEventListener("click",()=>selectPoint(points[+el.dataset.point])));
- svg.querySelectorAll("[data-province]").forEach(el=>el.addEventListener("click",()=>showProvinceDetail(el.dataset.province)));
+ svg.querySelectorAll("[data-province]").forEach(el=>{el.addEventListener("click",()=>showProvinceDetail(el.dataset.province));el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();showProvinceDetail(el.dataset.province);}});});
 }
 function pointInRing(point,ring){let inside=false;const x=point[0],y=point[1];for(let i=0,j=ring.length-1;i<ring.length;j=i++){const xi=ring[i][0],yi=ring[i][1],xj=ring[j][0],yj=ring[j][1];const cross=((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi);if(cross)inside=!inside;}return inside;}
 function pointInGeometry(lon,lat,geometry){const p=[lon,lat];const inPolygon=poly=>poly.length>0&&pointInRing(p,poly[0])&&!poly.slice(1).some(r=>pointInRing(p,r));if(geometry.type==="Polygon")return inPolygon(geometry.coordinates);if(geometry.type==="MultiPolygon")return geometry.coordinates.some(inPolygon);return false;}
