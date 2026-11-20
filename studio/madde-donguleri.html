@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Madde Döngüleri | Etkileşimli 3D Öğrenme Laboratuvarı</title>
+<style>
+:root{--bg:#07111f;--panel:#101e30;--panel2:#15263b;--text:#eaf2ff;--muted:#9fb1c8;--cyan:#57d6e8;--green:#75dfa7;--orange:#ffbd69;--pink:#f18bb4}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 55% 35%,#142b45 0,#091626 45%,#050c16 100%);color:var(--text);font:15px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Arial,sans-serif;min-height:100vh}
+header{padding:18px 22px 12px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #24364d;background:#07111fbb;backdrop-filter:blur(12px);position:relative;z-index:3}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#38c9df,#3779c8);display:grid;place-items:center;font-size:22px;box-shadow:0 8px 30px #2db5d944}.brand h1{font-size:17px;margin:0;letter-spacing:.2px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.pill{border:1px solid #35516e;background:#102238;color:#cfe5ff;border-radius:999px;padding:7px 11px;font-size:11px;white-space:nowrap}
+main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:14px;padding:14px;max-width:1600px;margin:auto;min-height:calc(100vh - 75px)}
+.stage{position:relative;min-height:660px;border:1px solid #28415e;border-radius:20px;overflow:hidden;background:linear-gradient(180deg,#10243a88,#07111f88);box-shadow:0 20px 60px #0005}
+#scene{position:absolute;inset:0}#scene canvas{display:block;width:100%;height:100%}
+.hud{position:absolute;z-index:2;pointer-events:none}.top-hud{top:16px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.chapter{background:#0b1a2bd9;border:1px solid #36516d;border-radius:14px;padding:10px 13px;max-width:420px;backdrop-filter:blur(8px)}.chapter strong{display:block;font-size:15px}.chapter span{color:var(--muted);font-size:12px}.legend{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.legend span{font-size:11px;color:#d7e5f7;background:#0b1a2bd9;border:1px solid #314b67;border-radius:999px;padding:6px 9px}
+.bottom-hud{bottom:14px;left:16px;right:16px;display:flex;justify-content:space-between;align-items:end;gap:10px}.hint{color:#afc2d8;font-size:11px;background:#0b1a2bd9;border:1px solid #314b67;padding:8px 10px;border-radius:10px;max-width:75%}
+.controls{display:flex;gap:7px;pointer-events:auto}.iconbtn{border:1px solid #38536e;background:#102238;color:#e7f2ff;border-radius:10px;padding:8px 11px;cursor:pointer}.iconbtn:hover,.tab:hover{background:#1b3855}
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}.panel{background:linear-gradient(180deg,#12243a,#0d1b2d);border:1px solid #29425e;border-radius:17px;padding:15px;box-shadow:0 12px 35px #0003}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px}.tab{border:1px solid #34516e;background:#102238;color:#bfd1e5;padding:11px 8px;border-radius:11px;font-weight:700;cursor:pointer}.tab.active{color:#061522;background:linear-gradient(135deg,#65dce8,#76e1ad);border-color:transparent}
+.panel h2{font-size:15px;margin:0 0 6px}.panel p{font-size:13px;color:#c4d3e4;margin:5px 0 0}.eyebrow{font-size:10px;color:#83a1c0;text-transform:uppercase;letter-spacing:1.3px;font-weight:800;margin-bottom:7px}
+#detailTitle{font-size:18px;margin:0 0 7px}#detailText{color:#c5d5e7;font-size:13px;min-height:58px}.formula{font:700 13px ui-monospace,monospace;color:#b5f2e1;background:#0a1726;border:1px solid #29425e;padding:9px 10px;border-radius:10px;margin-top:10px}
+.steps{display:flex;flex-direction:column;gap:6px;margin-top:10px}.step{display:flex;gap:9px;align-items:flex-start;border:1px solid #263f59;background:#0d1c2d;padding:8px 9px;border-radius:10px;text-align:left;color:#dbe9f8;cursor:pointer}.step b{width:21px;height:21px;display:grid;place-items:center;background:#1c3854;border-radius:7px;font-size:11px;flex:none}.step span{font-size:12px}.step.active{border-color:#67d7e4;background:#15324a}.step.active b{background:#63d5e1;color:#06202a}
+.fact{border-left:3px solid var(--orange);padding:8px 10px;background:#241f1a88;border-radius:0 9px 9px 0;color:#f5d7ae;font-size:12px;margin-top:10px}
+.quizbtn{width:100%;border:0;background:linear-gradient(135deg,#56d5e5,#7de1a5);color:#06202a;font-weight:800;border-radius:11px;padding:11px;cursor:pointer}.quiz{display:none;margin-top:10px;border:1px solid #35516e;border-radius:11px;padding:10px;background:#0b1929}.quiz.show{display:block}.quiz p{margin:0 0 8px}.quiz button{display:block;width:100%;text-align:left;margin:5px 0;padding:8px;border:1px solid #34516e;border-radius:8px;background:#12263b;color:#e5f0fc;cursor:pointer;font-size:12px}.quiz button:hover{border-color:#6bd8e4}.result{font-size:12px;margin-top:8px;color:#8fe6b4}
+footer{text-align:center;color:#7189a4;font-size:10px;padding:0 12px 14px}
+@media(max-width:1000px){main{grid-template-columns:1fr}.stage{min-height:570px}.side{display:grid;grid-template-columns:1fr 1fr}.side .panel:first-child{grid-column:1/-1}}
+@media(max-width:620px){header{padding:13px}.brand h1{font-size:14px}.pill{display:none}main{padding:8px;gap:8px}.stage{min-height:490px}.side{display:flex}.top-hud{top:9px;left:9px;right:9px}.chapter{padding:8px 9px}.chapter strong{font-size:12px}.chapter span{font-size:10px}.legend{display:none}.bottom-hud{left:9px;right:9px;bottom:9px}.hint{font-size:10px}.iconbtn{padding:7px 9px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">🧬</div><div><h1>MADDE DÖNGÜLERİ · 3D LABORATUVARI</h1><p>ÖABT Biyoloji • Etkileşimli öğrenme modeli</p></div></div>
+ <div class="pill">TÜRKÇE · BİLİMSEL KONTROLLÜ İÇERİK</div>
+</header>
+<main>
+ <section class="stage">
+  <div id="scene"></div>
+  <div class="hud top-hud">
+   <div class="chapter"><strong id="sceneTitle">Azot döngüsü</strong><span id="sceneSubtitle">Atmosferden toprağa, canlılardan yeniden atmosfere</span></div>
+   <div class="legend"><span>● Madde deposu</span><span>➜ Dönüşüm / aktarım</span></div>
+  </div>
+  <div class="hud bottom-hud">
+   <div class="hint">Sürükle: döndür · Tekerlek: yakınlaştır · Bir düğüme dokun: ayrıntıyı gör</div>
+   <div class="controls"><button class="iconbtn" id="reset">⟲ Sıfırla</button><button class="iconbtn" id="pause">Ⅱ Döndür</button></div>
+  </div>
+ </section>
+ <aside class="side">
+  <section class="panel">
+   <div class="eyebrow">Döngü seçimi</div>
+   <div class="tabs"><button class="tab active" id="nitrogenTab">Azot · N</button><button class="tab" id="carbonTab">Karbon · C</button></div>
+  </section>
+  <section class="panel">
+   <div class="eyebrow">Seçili basamak</div>
+   <h2 id="detailTitle">Atmosferik azot</h2>
+   <div id="detailText">Atmosferin yaklaşık %78’i N₂ gazıdır. Çoğu canlı bu gazı doğrudan kullanamaz; önce biyolojik veya abiyotik yollarla bağlanması gerekir.</div>
+   <div class="formula" id="detailFormula">N₂ · Atmosferik depo</div>
+   <div class="fact" id="detailFact">ÖABT: Atmosfer, azot döngüsünün en büyük aktif deposudur.</div>
+  </section>
+  <section class="panel">
+   <div class="eyebrow">Aşamaları keşfet</div>
+   <div class="steps" id="steps"></div>
+  </section>
+  <section class="panel">
+   <div class="eyebrow">Bilgini dene</div>
+   <button class="quizbtn" id="quizToggle">Mini ÖABT sorusunu aç</button>
+   <div class="quiz" id="quiz">
+    <p id="quizQuestion"></p><div id="quizOptions"></div><div class="result" id="quizResult"></div>
+   </div>
+  </section>
+ </aside>
+</main>
+<footer>Öğrenme modeli: şematik gösterimdir; oklar temel madde akışlarını temsil eder, ölçekli coğrafi model değildir. Kaynak dayanağı: MEB/OGM 10. Sınıf Biyoloji, Madde Döngüleri; MEB Ekoloji ders materyali.</footer>
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+const datasets={
+ nitrogen:{
+  title:'Azot döngüsü',subtitle:'Atmosferden toprağa, canlılardan yeniden atmosfere',
+  nodes:[
+   {id:'n2',name:'Atmosferik azot',formula:'N₂ · Atmosferik depo',desc:'Atmosferin yaklaşık %78’i N₂ gazıdır. Çoğu canlı bu gazı doğrudan kullanamaz; önce biyolojik veya abiyotik yollarla bağlanması gerekir.',fact:'ÖABT: Atmosfer, azot döngüsünün en büyük aktif deposudur.',pos:[0,2.6,0],color:0x58c9e8},
+   {id:'fix',name:'Azot bağlanması',formula:'N₂ → NH₃ / NH₄⁺',desc:'Atmosferik N₂; bazı bakteriler, yıldırım ve endüstriyel süreçlerle biyolojik sistemlerin kullanabileceği bileşiklere dönüştürülür. Rhizobium baklagil kök nodüllerinde, Azotobacter serbest yaşar.',fact:'ÖABT: Rhizobium simbiyotik; Azotobacter serbest yaşayan azot bağlayıcıdır.',pos:[-3.0,1.0,0.5],color:0x77dca6},
+   {id:'nh4',name:'Amonyak / Amonyum',formula:'NH₃ ⇌ NH₄⁺',desc:'Azot bağlanması ve organik azotun ayrıştırılması sonucunda oluşabilir. Toprak pH’sına bağlı olarak amonyak ve amonyum dengededir.',fact:'Amonifikasyonun temel inorganik ürünü NH₃/NH₄⁺ olarak gösterilir.',pos:[-2.6,-1.0,0.2],color:0xffbd69},
+   {id:'no2',name:'Nitrit',formula:'NO₂⁻',desc:'Nitrifikasyonun ilk basamağında amonyum/amonyak oksitlenerek nitrite dönüşür. Bu basamakta Nitrosomonas ve başka amonyak oksitleyen mikroorganizmalar görev alır.',fact:'Nitrosomonas: amonyak/amonyum → nitrit.',pos:[0,-2.0,0.6],color:0xff946b},
+   {id:'no3',name:'Nitrat',formula:'NO₃⁻',desc:'Nitrit, nitrit oksitleyen bakteriler tarafından nitrata dönüştürülür. Nitrat bitkiler tarafından alınabilir; ayrıca denitrifikasyonda elektron alıcısı olarak kullanılır.',fact:'Nitrobacter ve Nitrospira gibi bakteriler nitrit oksitleyebilir.',pos:[2.8,-1.0,0.1],color:0x8eabff},
+   {id:'plant',name:'Bitkisel organik azot',formula:'Amino asitler · Proteinler',desc:'Bitkiler nitratı ve birçok ortamda amonyumu alıp amino asit, protein ve nükleik asit gibi organik moleküllere katar. Bu sürece asimilasyon denir.',fact:'Asimilasyon, inorganik azotun canlı organik yapısına katılmasıdır.',pos:[3.0,1.1,0.7],color:0x75dfa7},
+   {id:'animal',name:'Hayvansal organik azot',formula:'Proteinler · Nükleik asitler',desc:'Hayvanlar azotu besinleriyle alır. Bitkileri veya diğer hayvanları tüketerek organik azotu kendi biyomoleküllerine aktarırlar.',fact:'Beslenme, azotun trofik düzeyler arasında aktarılmasını sağlar.',pos:[0.5,2.0,1.2],color:0xd89cff}
+  ],
+  edges:[
+   ['n2','fix','Azot bağlanması'],['fix','nh4','Amonyak oluşumu'],['nh4','no2','Nitrifikasyon · I'],['no2','no3','Nitrifikasyon · II'],['no3','plant','Asimilasyon'],['plant','animal','Beslenme'],['animal','nh4','Atık + ayrışma'],['plant','nh4','Amonifikasyon'],['no3','n2','Denitrifikasyon']
+  ],
+  steps:[
+   ['n2','Atmosferik N₂','Azotun atmosferik deposu.'],
+   ['fix','Azot bağlanması','N₂, NH₃/NH₄⁺ gibi kullanılabilir bileşiklere dönüştürülür.'],
+   ['nh4','Amonifikasyon','Ölü organizmalar ve azotlu atıkların organik azotu NH₃/NH₄⁺ hâline gelir.'],
+   ['no2','Nitrifikasyon I','Amonyak/amonyum nitrite oksitlenir.'],
+   ['no3','Nitrifikasyon II','Nitrit nitrata oksitlenir; bitkiler nitratı alabilir.'],
+   ['plant','Asimilasyon','Bitkiler inorganik azotu organik moleküllere katar.'],
+   ['animal','Beslenme ve denitrifikasyon','Azot besin zincirinde aktarılır; nitratın bir bölümü N₂ gazına indirgenerek atmosfere döner.']
+  ],
+  quiz:{q:'Amonyumun nitrite oksitlenmesini hangi süreç ve mikroorganizmalar gerçekleştirir?',opts:['Denitrifikasyon – Pseudomonas','Nitrifikasyonun ilk basamağı – Nitrosomonas','Azot bağlanması – Rhizobium'],a:1,why:'Doğru. Amonyak oksitleyen bakteriler (ör. Nitrosomonas) amonyak/amonyumu nitrite dönüştürür.'}
+ },
+ carbon:{
+  title:'Karbon döngüsü',subtitle:'Atmosfer, canlılar, okyanuslar ve kayaçlar arasında karbon akışı',
+  nodes:[
+   {id:'co2',name:'Atmosferik karbondioksit',formula:'CO₂ · Atmosferik depo',desc:'Atmosferdeki CO₂, fotosentez yapan canlılar için önemli bir inorganik karbon kaynağıdır. Karbon ayrıca okyanuslarda çözünmüş inorganik karbon olarak bulunur.',fact:'ÖABT: Karbonun büyük jeolojik depoları tortul kayaçlar ve karbonatlı kayaçlardır.',pos:[0,2.7,0],color:0x58c9e8},
+   {id:'photo',name:'Fotosentez',formula:'CO₂ + H₂O → Organik madde + O₂',desc:'Bitkiler, algler ve siyanobakteriler ışık enerjisini kullanarak CO₂’den organik madde sentezler. Karbon atmosferik/çözünmüş inorganik havuzdan biyokütleye geçer.',fact:'Fotosentez CO₂ tüketir; açığa çıkan O₂’nin kaynağı sudur.',pos:[-3,1.0,0.4],color:0x75dfa7},
+   {id:'bio',name:'Üretici biyokütlesi',formula:'Organik karbon · (CH₂O)n',desc:'Fotosentezle bağlanan karbon; karbonhidrat, yağ, protein ve diğer organik bileşiklerin yapısına katılır. Üreticiler bu karbonu büyüme ve metabolizmada kullanır.',fact:'Karbon, besin zincirine üreticilerin organik maddeleriyle girer.',pos:[-2.5,-1.1,0.2],color:0x8fe0a2},
+   {id:'consumer',name:'Tüketiciler',formula:'Organik karbon',desc:'Otçullar, etçiller ve hepçiller besin yoluyla organik karbon alır. Karbon besin ağı boyunca canlılar arasında aktarılır.',fact:'Beslenme karbonu bir trofik düzeyden diğerine taşır.',pos:[0.4,-2.0,0.8],color:0xd89cff},
+   {id:'resp',name:'Hücresel solunum',formula:'Organik madde + O₂ → CO₂ + H₂O',desc:'Üreticiler, tüketiciler ve ayrıştırıcılar organik maddeleri hücresel solunumda parçalayarak enerji elde eder; karbonun önemli bir kısmı CO₂ olarak çevreye döner.',fact:'Fotosentez CO₂ alır; hücresel solunum CO₂ verir.',pos:[3,-0.9,0.1],color:0xffbd69},
+   {id:'decomp',name:'Ayrışma',formula:'Ölü organik madde → İnorganik karbon',desc:'Ayrıştırıcılar ölü organizmaları ve atıkları parçalar. Ayrışma ve ayrıştırıcı solunumu karbonu CO₂ olarak atmosfere veya suya geri verebilir.',fact:'Ayrışma karbonu geri dönüştürür; bir kısmı uzun süreli gömülmeyle depolanabilir.',pos:[2.8,1.1,0.5],color:0xff946b},
+   {id:'fossil',name:'Fosil yakıtlar',formula:'Kömür · Petrol · Doğal gaz',desc:'Organik karbonun bir bölümü uygun jeolojik koşullarda gömülerek çok uzun zaman ölçeklerinde fosil yakıtlara dönüşebilir. Bu karbon, yakıtlar çıkarılıp yakılana kadar uzun süre depolanır.',fact:'Fosil yakıtların yanması, jeolojik depodaki karbonu hızla atmosfere taşır.',pos:[0.3,0.2,-2.2],color:0x9aaec4},
+   {id:'ocean',name:'Okyanuslar',formula:'Çözünmüş CO₂ · HCO₃⁻ · CO₃²⁻',desc:'Atmosfer ile okyanus arasında CO₂ alışverişi gerçekleşir. CO₂ suda çözünür; çözünmüş inorganik karbonun önemli bir bölümü bikarbonat ve karbonat iyonları hâlindedir. Denizel üreticiler de bu karbonu kullanabilir.',fact:'Okyanuslar, karbon döngüsünün çok büyük aktif depolarındandır.',pos:[4.2,2.0,-1.3],color:0x58a9ee},
+   {id:'carbonate',name:'Karbonatlı kayaçlar',formula:'CaCO₃ · Kalker ve denizel tortullar',desc:'Denizel canlıların kabuk ve iskeletlerindeki karbonatların çökelmesiyle karbonatlı tortullar ve kayaçlar oluşabilir. Ayrışma ve jeolojik süreçlerle karbon çok uzun zaman ölçeklerinde yeniden döngüye katılır.',fact:'Kalker gibi karbonatlı kayaçlar, uzun dönemli en büyük karbon depolarındandır.',pos:[-4.0,-1.7,-1.4],color:0xb8c4d5}
+  ],
+  edges:[
+   ['co2','photo','Fotosentez'],['photo','bio','Karbonun biyokütleye katılması'],['bio','consumer','Beslenme'],['bio','resp','Üretici solunumu'],['consumer','resp','Tüketici solunumu'],['decomp','resp','Ayrıştırıcı solunumu'],['bio','decomp','Ölüm ve atık'],['consumer','decomp','Ölüm ve atık'],['decomp','co2','CO₂ salımı'],['resp','co2','CO₂ salımı'],['decomp','fossil','Gömülme · uzun dönem'],['fossil','co2','Yanma'],['co2','ocean','Çözünme'],['ocean','co2','Gaz alışverişi'],['ocean','carbonate','Çökelme / tortullaşma'],['carbonate','co2','Jeolojik süreçler · yavaş']
+  ],
+  steps:[
+   ['co2','Atmosferik CO₂','Karbonun hızlı döngüdeki önemli inorganik havuzu.'],
+   ['photo','Fotosentez','Üreticiler CO₂’yi organik maddeye dönüştürür.'],
+   ['bio','Üretici biyokütlesi','Karbon bitkilerin ve diğer üreticilerin organik yapısına katılır.'],
+   ['consumer','Beslenme','Karbon besin ağıyla tüketicilere aktarılır.'],
+   ['resp','Hücresel solunum','Canlılar organik karbonu parçalayarak CO₂ verir.'],
+   ['decomp','Ayrışma','Ölü canlılar ve atıklar ayrışır; karbon çevreye döner.'],
+   ['ocean','Okyanuslarla alışveriş','CO₂ atmosfer ve okyanus arasında çözünme ve gaz alışverişiyle hareket eder.'],
+   ['fossil','Fosil yakıtlar','Organik karbonun bir bölümü gömülerek kömür, petrol ve doğal gaz gibi depolarda birikir.'],
+   ['carbonate','Karbonatlı kayaçlar','Karbonatların çökelmesi uzun dönemli jeolojik karbon depoları oluşturur.']
+  ],
+  quiz:{q:'Karbon döngüsünde atmosferik CO₂’yi doğrudan tüketen temel biyolojik süreç hangisidir?',opts:['Hücresel solunum','Fotosentez','Yanma'],a:1,why:'Doğru. Fotosentez CO₂’yi organik madde sentezinde kullanır.'}
+ }
+};
+
+let current='nitrogen', selected='n2', autoRotate=true, nodes=[], edges=[], raycaster, pointer, controls, scene, camera, renderer, labelGroup;
+const host=document.getElementById('scene');
+scene=new THREE.Scene();scene.fog=new THREE.FogExp2(0x081626,.035);
+camera=new THREE.PerspectiveCamera(45,1,.1,100);camera.position.set(0,1.2,10.8);
+renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));renderer.outputColorSpace=THREE.SRGBColorSpace;host.appendChild(renderer.domElement);
+controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.minDistance=6;controls.maxDistance=18;controls.autoRotate=true;controls.autoRotateSpeed=.45;
+scene.add(new THREE.AmbientLight(0x9dbbd9,1.8));const key=new THREE.PointLight(0x8adfff,55,30);key.position.set(3,5,7);scene.add(key);const rim=new THREE.PointLight(0x428dff,32,30);rim.position.set(-5,-3,-5);scene.add(rim);
+const starGeo=new THREE.BufferGeometry(), starPos=[];for(let i=0;i<500;i++){starPos.push((Math.random()-.5)*38,(Math.random()-.5)*25,(Math.random()-.5)*25)}starGeo.setAttribute('position',new THREE.Float32BufferAttribute(starPos,3));const stars=new THREE.Points(starGeo,new THREE.PointsMaterial({color:0x8db5d9,size:.025,transparent:true,opacity:.65}));scene.add(stars);
+raycaster=new THREE.Raycaster();pointer=new THREE.Vector2();
+function clearGroup(){for(const n of nodes){scene.remove(n.mesh);scene.remove(n.glow)}for(const e of edges){scene.remove(e.line);scene.remove(e.cone);scene.remove(e.label)}nodes=[];edges=[];if(labelGroup)scene.remove(labelGroup)}
+function makeTextSprite(text,color='#eaf5ff'){const c=document.createElement('canvas'),ctx=c.getContext('2d');ctx.font='bold 30px Arial';const w=ctx.measureText(text).width+34;c.width=w;c.height=54;ctx.font='bold 30px Arial';ctx.fillStyle='rgba(6,18,32,.82)';roundRect(ctx,0,0,w,54,15);ctx.fill();ctx.strokeStyle='rgba(120,180,220,.55)';ctx.lineWidth=2;roundRect(ctx,1,1,w-2,52,14);ctx.stroke();ctx.fillStyle=color;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,w/2,28);const tex=new THREE.CanvasTexture(c);const mat=new THREE.SpriteMaterial({map:tex,transparent:true,depthWrite:false});const s=new THREE.Sprite(mat);s.scale.set(w/125,0.43,1);return s}
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
+function renderData(){
+ clearGroup();const data=datasets[current];
+ data.nodes.forEach(d=>{const g=new THREE.Group();const mat=new THREE.MeshStandardMaterial({color:d.color,metalness:.18,roughness:.28,emissive:d.color,emissiveIntensity:.12});const mesh=new THREE.Mesh(new THREE.IcosahedronGeometry(.48,2),mat);g.position.set(...d.pos);g.add(mesh);const halo=new THREE.Mesh(new THREE.SphereGeometry(.61,24,24),new THREE.MeshBasicMaterial({color:d.color,transparent:true,opacity:.09,side:THREE.BackSide}));g.add(halo);scene.add(g);const glow=new THREE.PointLight(d.color,1.8,3);glow.position.copy(g.position);scene.add(glow);const label=makeTextSprite(d.name);label.position.set(d.pos[0],d.pos[1]-.78,d.pos[2]);scene.add(label);nodes.push({id:d.id,mesh:g,glow,label,data:d});});
+ data.edges.forEach((ed,i)=>{const a=data.nodes.find(n=>n.id===ed[0]),b=data.nodes.find(n=>n.id===ed[1]);if(!a||!b)return;const start=new THREE.Vector3(...a.pos),end=new THREE.Vector3(...b.pos);let mid=start.clone().add(end).multiplyScalar(.5);mid.z+= (i%2?1:-1)*.65;mid.y+= (i%3-1)*.28;const curve=new THREE.QuadraticBezierCurve3(start,mid,end);const points=curve.getPoints(48);const geo=new THREE.BufferGeometry().setFromPoints(points);const color=current==='nitrogen'?0x5bd6e6:0x80dca9;const line=new THREE.Line(geo,new THREE.LineDashedMaterial({color,dashSize:.13,gapSize:.09,transparent:true,opacity:.8}));line.computeLineDistances();scene.add(line);const tangent=curve.getTangent(.98).normalize();const cone=new THREE.Mesh(new THREE.ConeGeometry(.105,.28,12),new THREE.MeshBasicMaterial({color}));cone.position.copy(end).addScaledVector(tangent,-.12);cone.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),tangent);scene.add(cone);const label=makeTextSprite(ed[2],current==='nitrogen'?'#a8f1f6':'#b9f7ce');label.scale.multiplyScalar(.68);label.position.copy(curve.getPoint(.5));label.position.y+=.17;scene.add(label);edges.push({line,cone,label});});
+ // subtle orbit ring
+ const ring=new THREE.Mesh(new THREE.TorusGeometry(4.15,.012,8,150),new THREE.MeshBasicMaterial({color:current==='nitrogen'?0x246b88:0x35785c,transparent:true,opacity:.4}));ring.rotation.x=1.12;scene.add(ring);
+ camera.position.set(0,.6,10.8);controls.target.set(0,0,0);controls.update();
+ document.getElementById('sceneTitle').textContent=data.title;document.getElementById('sceneSubtitle').textContent=data.subtitle;
+ buildSteps();selectNode(data.nodes[0].id);
+ document.getElementById('nitrogenTab').classList.toggle('active',current==='nitrogen');document.getElementById('carbonTab').classList.toggle('active',current==='carbon');
+}
+function buildSteps(){const data=datasets[current];const el=document.getElementById('steps');el.innerHTML='';data.steps.forEach((s,i)=>{const btn=document.createElement('button');btn.className='step';btn.innerHTML=`<b>${i+1}</b><span><strong>${s[1]}</strong><br><span style="color:#91a9c3">${s[2]}</span></span>`;btn.addEventListener('click',()=>selectNode(s[0]));el.appendChild(btn)});}
+function selectNode(id){selected=id;const d=datasets[current].nodes.find(n=>n.id===id);if(!d)return;document.getElementById('detailTitle').textContent=d.name;document.getElementById('detailText').textContent=d.desc;document.getElementById('detailFormula').textContent=d.formula;document.getElementById('detailFact').textContent=d.fact;nodes.forEach(n=>{const active=n.id===id;n.mesh.scale.setScalar(active?1.23:1);n.mesh.children[0].material.emissiveIntensity=active?.55:.12;n.glow.intensity=active?3.8:1.8;n.label.material.opacity=active?1:.83});[...document.querySelectorAll('.step')].forEach((b,i)=>b.classList.toggle('active',datasets[current].steps[i][0]===id));}
+function resize(){const w=host.clientWidth,h=host.clientHeight;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h)}
+window.addEventListener('resize',resize);resize();
+renderer.domElement.addEventListener('pointerdown',e=>{const r=renderer.domElement.getBoundingClientRect();pointer.x=((e.clientX-r.left)/r.width)*2-1;pointer.y=-((e.clientY-r.top)/r.height)*2+1;raycaster.setFromCamera(pointer,camera);const hits=raycaster.intersectObjects(nodes.flatMap(n=>n.mesh.children),true);if(hits.length){let obj=hits[0].object;const n=nodes.find(n=>n.mesh===obj.parent);if(n)selectNode(n.id)}});
+document.getElementById('nitrogenTab').onclick=()=>{current='nitrogen';renderData();document.getElementById('quiz').classList.remove('show')};
+document.getElementById('carbonTab').onclick=()=>{current='carbon';renderData();document.getElementById('quiz').classList.remove('show')};
+document.getElementById('reset').onclick=()=>{camera.position.set(0,.6,10.8);controls.target.set(0,0,0);controls.update();selectNode(datasets[current].nodes[0].id)};
+document.getElementById('pause').onclick=e=>{autoRotate=!autoRotate;controls.autoRotate=autoRotate;e.target.textContent=autoRotate?'Ⅱ Döndür':'▶ Döndür'};
+document.getElementById('quizToggle').onclick=()=>{const q=document.getElementById('quiz');q.classList.toggle('show');if(q.classList.contains('show'))loadQuiz()};
+function loadQuiz(){const q=datasets[current].quiz;document.getElementById('quizQuestion').textContent=q.q;document.getElementById('quizResult').textContent='';const box=document.getElementById('quizOptions');box.innerHTML='';q.opts.forEach((o,i)=>{const b=document.createElement('button');b.textContent=String.fromCharCode(65+i)+') '+o;b.onclick=()=>{document.getElementById('quizResult').textContent=i===q.a?q.why:'Tekrar düşün. İpucu: süreçte hangi madde hangi yöne dönüşüyor?';document.getElementById('quizResult').style.color=i===q.a?'#8fe6b4':'#ffbd69'};box.appendChild(b)})}
+function animate(){requestAnimationFrame(animate);controls.update();renderer.render(scene,camera)}renderData();animate();
+</script>
+</body></html>
